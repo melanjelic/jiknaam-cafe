@@ -9,9 +9,11 @@ import {
   type GalleryItem,
 } from "@/lib/firestore";
 import { uploadImage } from "@/lib/storage";
+import { useAdminLang } from "@/context/AdminLangContext";
 import { Images, Trash2, Upload, Loader2 } from "lucide-react";
 
 export default function AdminGalleryPage() {
+  const { t } = useAdminLang();
   const [items, setItems] = useState<GalleryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
@@ -47,7 +49,7 @@ export default function AdminGalleryPage() {
   }
 
   async function handleDelete(item: GalleryItem) {
-    if (!confirm("Remove this image from the gallery?")) return;
+    if (!confirm(t("removeImageConfirm"))) return;
     await deleteGalleryItem(item.id);
     await load();
   }
@@ -57,7 +59,7 @@ export default function AdminGalleryPage() {
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <Images size={20} className="text-[#d4a853]" />
-          <h1 className="text-xl font-semibold text-[#f0ece4]">Gallery</h1>
+          <h1 className="text-xl font-semibold text-[#f0ece4]">{t("gallery")}</h1>
           <span className="text-xs text-[#555] bg-[#1c1c1c] px-2 py-0.5 rounded-full">{items.length}</span>
         </div>
         <div>
@@ -75,19 +77,18 @@ export default function AdminGalleryPage() {
             className="flex items-center gap-2 bg-[#d4a853] hover:bg-[#c49a3c] disabled:opacity-50 text-[#0d0d0d] text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
           >
             {uploading ? <Loader2 size={15} className="animate-spin" /> : <Upload size={15} />}
-            {uploading ? "Uploading..." : "Upload Images"}
+            {uploading ? t("uploading") : t("uploadImages")}
           </button>
         </div>
       </div>
 
-      {/* Drop hint */}
       {items.length === 0 && !loading && (
         <button
           onClick={() => inputRef.current?.click()}
           className="w-full border-2 border-dashed border-[#2a2a2a] hover:border-[#d4a853]/40 rounded-2xl py-20 flex flex-col items-center gap-3 text-[#555] hover:text-[#888] transition-colors"
         >
           <Upload size={28} />
-          <span className="text-sm">Click to upload images</span>
+          <span className="text-sm">{t("clickToUpload")}</span>
         </button>
       )}
 

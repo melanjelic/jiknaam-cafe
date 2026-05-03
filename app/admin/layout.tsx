@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { AuthProvider, useAuth } from "@/context/AuthContext";
+import { AdminLangProvider, useAdminLang } from "@/context/AdminLangContext";
 import {
   LayoutDashboard,
   UtensilsCrossed,
@@ -15,6 +16,7 @@ import {
 
 function AdminShell({ children }: { children: React.ReactNode }) {
   const { user, loading, signOut } = useAuth();
+  const { lang, setLang, t } = useAdminLang();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -39,19 +41,27 @@ function AdminShell({ children }: { children: React.ReactNode }) {
   if (!user) return null;
 
   const navLinks = [
-    { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
-    { href: "/admin/menu", label: "Menu", icon: UtensilsCrossed },
-    { href: "/admin/campaigns", label: "Campaigns", icon: Megaphone },
-    { href: "/admin/gallery", label: "Gallery", icon: Images },
+    { href: "/admin", label: t("dashboard"), icon: LayoutDashboard },
+    { href: "/admin/menu", label: t("menu"), icon: UtensilsCrossed },
+    { href: "/admin/campaigns", label: t("campaigns"), icon: Megaphone },
+    { href: "/admin/gallery", label: t("gallery"), icon: Images },
   ];
 
   return (
     <div className="min-h-screen bg-[#111] flex">
       {/* Sidebar */}
       <aside className="w-56 bg-[#0d0d0d] border-r border-[#2a2a2a] flex flex-col">
-        <div className="p-5 border-b border-[#2a2a2a] flex items-center gap-2">
-          <Coffee size={20} className="text-[#d4a853]" />
-          <span className="font-semibold text-[#f0ece4] text-sm">Jiknaam Admin</span>
+        <div className="p-5 border-b border-[#2a2a2a] flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Coffee size={20} className="text-[#d4a853]" />
+            <span className="font-semibold text-[#f0ece4] text-sm">Jiknaam Admin</span>
+          </div>
+          <button
+            onClick={() => setLang(lang === "en" ? "th" : "en")}
+            className="text-[10px] px-2 py-1 rounded border border-[#3a3a3a] text-[#888] hover:text-[#f0ece4] hover:border-[#d4a853] transition-colors"
+          >
+            {lang === "en" ? "TH" : "EN"}
+          </button>
         </div>
 
         <nav className="flex-1 p-3 space-y-1">
@@ -83,7 +93,7 @@ function AdminShell({ children }: { children: React.ReactNode }) {
             className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-[#888] hover:text-red-400 hover:bg-red-400/10 transition-colors"
           >
             <LogOut size={16} />
-            Sign Out
+            {t("signOut")}
           </button>
         </div>
       </aside>
@@ -96,8 +106,10 @@ function AdminShell({ children }: { children: React.ReactNode }) {
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <AuthProvider>
-      <AdminShell>{children}</AdminShell>
-    </AuthProvider>
+    <AdminLangProvider>
+      <AuthProvider>
+        <AdminShell>{children}</AdminShell>
+      </AuthProvider>
+    </AdminLangProvider>
   );
 }

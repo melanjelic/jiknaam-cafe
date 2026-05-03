@@ -11,11 +11,13 @@ import {
   type Campaign,
 } from "@/lib/firestore";
 import { uploadImage } from "@/lib/storage";
+import { useAdminLang } from "@/context/AdminLangContext";
 import { Plus, Pencil, Trash2, X, Megaphone, Loader2 } from "lucide-react";
 
 type FormData = Omit<Campaign, "id"> & { imageFile?: FileList };
 
 export default function AdminCampaignsPage() {
+  const { t } = useAdminLang();
   const [items, setItems] = useState<Campaign[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -81,7 +83,7 @@ export default function AdminCampaignsPage() {
   }
 
   async function handleDelete(id: string) {
-    if (!confirm("Delete this campaign?")) return;
+    if (!confirm(t("deleteCampaignConfirm"))) return;
     await deleteCampaign(id);
     await load();
   }
@@ -96,18 +98,18 @@ export default function AdminCampaignsPage() {
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <Megaphone size={20} className="text-[#d4a853]" />
-          <h1 className="text-xl font-semibold text-[#f0ece4]">Campaigns</h1>
+          <h1 className="text-xl font-semibold text-[#f0ece4]">{t("campaigns")}</h1>
           <span className="text-xs text-[#555] bg-[#1c1c1c] px-2 py-0.5 rounded-full">{items.length}</span>
         </div>
         <button onClick={openAdd} className="flex items-center gap-2 bg-[#d4a853] hover:bg-[#c49a3c] text-[#0d0d0d] text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
-          <Plus size={15} /> Add Campaign
+          <Plus size={15} /> {t("addCampaign")}
         </button>
       </div>
 
       {loading ? (
         <div className="flex justify-center py-16"><Loader2 size={24} className="animate-spin text-[#d4a853]" /></div>
       ) : items.length === 0 ? (
-        <div className="text-center py-16 text-[#555]">No campaigns yet.</div>
+        <div className="text-center py-16 text-[#555]">{t("noCampaigns")}</div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {items.map((item) => (
@@ -118,14 +120,13 @@ export default function AdminCampaignsPage() {
                 <div className="absolute top-2 right-2">
                   <button
                     onClick={() => toggleActive(item)}
-                    title={item.active_status ? "Active" : "Inactive"}
                     className={`px-2.5 py-1 rounded-full text-[10px] font-semibold transition-colors ${
                       item.active_status
                         ? "bg-green-500/20 text-green-400 border border-green-500/30"
                         : "bg-[#2a2a2a] text-[#555] border border-[#3a3a3a]"
                     }`}
                   >
-                    {item.active_status ? "Active" : "Inactive"}
+                    {item.active_status ? t("active") : t("inactive")}
                   </button>
                 </div>
               </div>
@@ -155,41 +156,41 @@ export default function AdminCampaignsPage() {
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-[#141414] border border-[#2a2a2a] rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between p-5 border-b border-[#2a2a2a]">
-              <h2 className="font-semibold text-[#f0ece4]">{editing ? "Edit Campaign" : "Add Campaign"}</h2>
+              <h2 className="font-semibold text-[#f0ece4]">{editing ? t("editCampaign") : t("addCampaign")}</h2>
               <button onClick={closeForm} className="text-[#555] hover:text-[#f0ece4] transition-colors"><X size={18} /></button>
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="p-5 space-y-4">
               <div className="grid grid-cols-2 gap-3">
-                <Field label="Title (EN)" error={errors.title_en?.message}>
-                  <input {...register("title_en", { required: "Required" })} className={inputCls} placeholder="Happy Hour" />
+                <Field label={t("titleEn")} error={errors.title_en ? t("required") : undefined}>
+                  <input {...register("title_en", { required: true })} className={inputCls} placeholder="Happy Hour" />
                 </Field>
-                <Field label="Title (TH)" error={errors.title_th?.message}>
-                  <input {...register("title_th", { required: "Required" })} className={inputCls} placeholder="แฮปปี้ อาวร์" />
+                <Field label={t("titleTh")} error={errors.title_th ? t("required") : undefined}>
+                  <input {...register("title_th", { required: true })} className={inputCls} placeholder="แฮปปี้ อาวร์" />
                 </Field>
               </div>
-              <Field label="Description (EN)">
+              <Field label={t("descEn")}>
                 <textarea {...register("desc_en")} rows={2} className={inputCls} placeholder="50% off all drinks..." />
               </Field>
-              <Field label="Description (TH)">
+              <Field label={t("descTh")}>
                 <textarea {...register("desc_th")} rows={2} className={inputCls} placeholder="ลด 50%..." />
               </Field>
-              <Field label="Image URL">
+              <Field label={t("imageUrlShort")}>
                 <input {...register("image_url")} className={inputCls} placeholder="https://images.unsplash.com/..." />
               </Field>
-              <Field label="Upload Image (overrides URL)">
+              <Field label={t("uploadImage")}>
                 <input type="file" accept="image/*" {...register("imageFile")} className="text-sm text-[#888] file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-[#2a2a2a] file:text-[#f0ece4] file:text-xs hover:file:bg-[#3a3a3a] cursor-pointer" />
               </Field>
               <div className="flex items-center gap-2">
                 <input type="checkbox" id="active" {...register("active_status")} className="w-4 h-4 accent-[#d4a853]" />
-                <label htmlFor="active" className="text-sm text-[#888]">Active (visible on website)</label>
+                <label htmlFor="active" className="text-sm text-[#888]">{t("activeLabel")}</label>
               </div>
 
               <div className="flex justify-end gap-3 pt-2">
-                <button type="button" onClick={closeForm} className="px-4 py-2 text-sm text-[#888] hover:text-[#f0ece4] transition-colors">Cancel</button>
+                <button type="button" onClick={closeForm} className="px-4 py-2 text-sm text-[#888] hover:text-[#f0ece4] transition-colors">{t("cancel")}</button>
                 <button type="submit" disabled={saving} className="flex items-center gap-2 px-4 py-2 bg-[#d4a853] hover:bg-[#c49a3c] disabled:opacity-50 text-[#0d0d0d] text-sm font-semibold rounded-lg transition-colors">
                   {saving && <Loader2 size={13} className="animate-spin" />}
-                  {saving ? "Saving..." : "Save"}
+                  {saving ? t("saving") : t("save")}
                 </button>
               </div>
             </form>

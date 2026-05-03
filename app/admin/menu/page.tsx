@@ -12,6 +12,7 @@ import {
   type MenuCategory,
 } from "@/lib/firestore";
 import { uploadImage } from "@/lib/storage";
+import { useAdminLang } from "@/context/AdminLangContext";
 import { Plus, Pencil, Trash2, X, UtensilsCrossed, Loader2 } from "lucide-react";
 
 type FormData = Omit<MenuItem, "id"> & { imageFile?: FileList };
@@ -25,6 +26,7 @@ const SEED_IMAGES: Record<MenuCategory, string> = {
 };
 
 export default function AdminMenuPage() {
+  const { t } = useAdminLang();
   const [items, setItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -61,7 +63,6 @@ export default function AdminMenuPage() {
     reset();
   }
 
-  // Auto-fill placeholder image when category changes (only for new items)
   useEffect(() => {
     if (!editing && watchedCategory && SEED_IMAGES[watchedCategory as MenuCategory]) {
       setValue("image_url", SEED_IMAGES[watchedCategory as MenuCategory]);
@@ -101,7 +102,7 @@ export default function AdminMenuPage() {
   }
 
   async function handleDelete(id: string) {
-    if (!confirm("Delete this menu item?")) return;
+    if (!confirm(t("deleteMenuConfirm"))) return;
     await deleteMenuItem(id);
     await load();
   }
@@ -110,18 +111,17 @@ export default function AdminMenuPage() {
 
   return (
     <div>
-      {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <UtensilsCrossed size={20} className="text-[#d4a853]" />
-          <h1 className="text-xl font-semibold text-[#f0ece4]">Menu</h1>
+          <h1 className="text-xl font-semibold text-[#f0ece4]">{t("menu")}</h1>
           <span className="text-xs text-[#555] bg-[#1c1c1c] px-2 py-0.5 rounded-full">{items.length}</span>
         </div>
         <button
           onClick={openAdd}
           className="flex items-center gap-2 bg-[#d4a853] hover:bg-[#c49a3c] text-[#0d0d0d] text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
         >
-          <Plus size={15} /> Add Item
+          <Plus size={15} /> {t("addItem")}
         </button>
       </div>
 
@@ -142,13 +142,12 @@ export default function AdminMenuPage() {
         ))}
       </div>
 
-      {/* Grid */}
       {loading ? (
         <div className="flex justify-center py-16">
           <Loader2 size={24} className="animate-spin text-[#d4a853]" />
         </div>
       ) : filtered.length === 0 ? (
-        <div className="text-center py-16 text-[#555]">No items found.</div>
+        <div className="text-center py-16 text-[#555]">{t("noItems")}</div>
       ) : (
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
           {filtered.map((item) => (
@@ -181,12 +180,11 @@ export default function AdminMenuPage() {
         </div>
       )}
 
-      {/* Modal Form */}
       {showForm && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-[#141414] border border-[#2a2a2a] rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between p-5 border-b border-[#2a2a2a]">
-              <h2 className="font-semibold text-[#f0ece4]">{editing ? "Edit Item" : "Add Item"}</h2>
+              <h2 className="font-semibold text-[#f0ece4]">{editing ? t("editItem") : t("addItem")}</h2>
               <button onClick={closeForm} className="text-[#555] hover:text-[#f0ece4] transition-colors">
                 <X size={18} />
               </button>
@@ -194,45 +192,45 @@ export default function AdminMenuPage() {
 
             <form onSubmit={handleSubmit(onSubmit)} className="p-5 space-y-4">
               <div className="grid grid-cols-2 gap-3">
-                <Field label="Name (EN)" error={errors.name_en?.message}>
-                  <input {...register("name_en", { required: "Required" })} className={inputCls} placeholder="Latte" />
+                <Field label={t("nameEn")} error={errors.name_en ? t("required") : undefined}>
+                  <input {...register("name_en", { required: true })} className={inputCls} placeholder="Latte" />
                 </Field>
-                <Field label="Name (TH)" error={errors.name_th?.message}>
-                  <input {...register("name_th", { required: "Required" })} className={inputCls} placeholder="ลาเต้" />
+                <Field label={t("nameTh")} error={errors.name_th ? t("required") : undefined}>
+                  <input {...register("name_th", { required: true })} className={inputCls} placeholder="ลาเต้" />
                 </Field>
               </div>
 
-              <Field label="Description (EN)">
+              <Field label={t("descEn")}>
                 <textarea {...register("desc_en")} rows={2} className={inputCls} placeholder="Rich espresso with steamed milk..." />
               </Field>
-              <Field label="Description (TH)">
+              <Field label={t("descTh")}>
                 <textarea {...register("desc_th")} rows={2} className={inputCls} placeholder="เอสเพรสโซ่เข้มข้น..." />
               </Field>
 
               <div className="grid grid-cols-2 gap-3">
-                <Field label="Price (฿)" error={errors.price?.message}>
-                  <input type="number" min={0} {...register("price", { required: "Required", min: 0 })} className={inputCls} placeholder="95" />
+                <Field label={t("price")} error={errors.price ? t("required") : undefined}>
+                  <input type="number" min={0} {...register("price", { required: true, min: 0 })} className={inputCls} placeholder="95" />
                 </Field>
-                <Field label="Category" error={errors.category?.message}>
-                  <select {...register("category", { required: "Required" })} className={inputCls}>
+                <Field label={t("category")} error={errors.category ? t("required") : undefined}>
+                  <select {...register("category", { required: true })} className={inputCls}>
                     {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
                   </select>
                 </Field>
               </div>
 
-              <Field label="Image URL (placeholder)">
+              <Field label={t("imageUrl")}>
                 <input {...register("image_url")} className={inputCls} placeholder="https://images.unsplash.com/..." />
               </Field>
 
-              <Field label="Upload Image (overrides URL)">
+              <Field label={t("uploadImage")}>
                 <input type="file" accept="image/*" {...register("imageFile")} className="text-sm text-[#888] file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-[#2a2a2a] file:text-[#f0ece4] file:text-xs hover:file:bg-[#3a3a3a] cursor-pointer" />
               </Field>
 
               <div className="flex justify-end gap-3 pt-2">
-                <button type="button" onClick={closeForm} className="px-4 py-2 text-sm text-[#888] hover:text-[#f0ece4] transition-colors">Cancel</button>
+                <button type="button" onClick={closeForm} className="px-4 py-2 text-sm text-[#888] hover:text-[#f0ece4] transition-colors">{t("cancel")}</button>
                 <button type="submit" disabled={saving} className="flex items-center gap-2 px-4 py-2 bg-[#d4a853] hover:bg-[#c49a3c] disabled:opacity-50 text-[#0d0d0d] text-sm font-semibold rounded-lg transition-colors">
                   {saving && <Loader2 size={13} className="animate-spin" />}
-                  {saving ? "Saving..." : "Save"}
+                  {saving ? t("saving") : t("save")}
                 </button>
               </div>
             </form>

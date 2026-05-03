@@ -4,12 +4,14 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useAuth } from "@/context/AuthContext";
+import { useAdminLang } from "@/context/AdminLangContext";
 import { Coffee, Eye, EyeOff } from "lucide-react";
 
 type LoginForm = { email: string; password: string };
 
 function LoginPage() {
   const { user, signIn } = useAuth();
+  const { lang, setLang, t } = useAdminLang();
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
@@ -32,7 +34,7 @@ function LoginPage() {
       await signIn(data.email, data.password);
       router.replace("/admin");
     } catch {
-      setError("Invalid email or password.");
+      setError(t("invalidCredentials"));
     } finally {
       setIsLoading(false);
     }
@@ -40,14 +42,22 @@ function LoginPage() {
 
   return (
     <div className="min-h-screen bg-[#0d0d0d] flex items-center justify-center px-4">
+      {/* Language toggle */}
+      <button
+        onClick={() => setLang(lang === "en" ? "th" : "en")}
+        className="fixed top-4 right-4 text-xs px-3 py-1.5 rounded border border-[#3a3a3a] text-[#888] hover:text-[#f0ece4] hover:border-[#d4a853] transition-colors"
+      >
+        {lang === "en" ? "TH" : "EN"}
+      </button>
+
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="flex flex-col items-center mb-8">
           <div className="w-14 h-14 rounded-full bg-[#d4a853]/10 border border-[#d4a853]/30 flex items-center justify-center mb-4">
             <Coffee size={26} className="text-[#d4a853]" />
           </div>
-          <h1 className="text-xl font-semibold text-[#f0ece4]">Admin Login</h1>
-          <p className="text-sm text-[#666] mt-1">Jiknaam Cafe Management</p>
+          <h1 className="text-xl font-semibold text-[#f0ece4]">{t("adminLogin")}</h1>
+          <p className="text-sm text-[#666] mt-1">{t("managementSubtitle")}</p>
         </div>
 
         {/* Form */}
@@ -57,27 +67,25 @@ function LoginPage() {
         >
           {/* Email */}
           <div className="space-y-1.5">
-            <label className="text-xs font-medium text-[#888]">Email</label>
+            <label className="text-xs font-medium text-[#888]">{t("email")}</label>
             <input
               type="email"
               autoComplete="email"
-              {...register("email", { required: "Email is required" })}
+              {...register("email", { required: true })}
               className="w-full bg-[#1c1c1c] border border-[#3a3a3a] rounded-lg px-3.5 py-2.5 text-sm text-[#f0ece4] placeholder-[#555] focus:outline-none focus:border-[#d4a853] transition-colors"
               placeholder="admin@jiknaam.com"
             />
-            {errors.email && (
-              <p className="text-xs text-red-400">{errors.email.message}</p>
-            )}
+            {errors.email && <p className="text-xs text-red-400">{t("emailRequired")}</p>}
           </div>
 
           {/* Password */}
           <div className="space-y-1.5">
-            <label className="text-xs font-medium text-[#888]">Password</label>
+            <label className="text-xs font-medium text-[#888]">{t("password")}</label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
                 autoComplete="current-password"
-                {...register("password", { required: "Password is required" })}
+                {...register("password", { required: true })}
                 className="w-full bg-[#1c1c1c] border border-[#3a3a3a] rounded-lg px-3.5 py-2.5 pr-10 text-sm text-[#f0ece4] placeholder-[#555] focus:outline-none focus:border-[#d4a853] transition-colors"
                 placeholder="••••••••"
               />
@@ -89,9 +97,7 @@ function LoginPage() {
                 {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
               </button>
             </div>
-            {errors.password && (
-              <p className="text-xs text-red-400">{errors.password.message}</p>
-            )}
+            {errors.password && <p className="text-xs text-red-400">{t("passwordRequired")}</p>}
           </div>
 
           {/* Error */}
@@ -107,7 +113,7 @@ function LoginPage() {
             disabled={isLoading}
             className="w-full bg-[#d4a853] hover:bg-[#c49a3c] disabled:opacity-50 text-[#0d0d0d] font-semibold text-sm py-2.5 rounded-lg transition-colors"
           >
-            {isLoading ? "Signing in..." : "Sign In"}
+            {isLoading ? t("signingIn") : t("signIn")}
           </button>
         </form>
       </div>
