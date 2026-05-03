@@ -95,7 +95,7 @@ export default async function HomePage({
         <FadeIn>
           <blockquote className="max-w-xl mx-auto">
             <p className="text-2xl font-light text-[#888] leading-relaxed italic">
-              &ldquo;A great cup of coffee is a love letter to the senses.&rdquo;
+              &ldquo;{t("quote")}&rdquo;
             </p>
             <span className="mt-4 block text-xs text-[#d4a853] tracking-widest uppercase">
               — {tCommon("brandName")}
