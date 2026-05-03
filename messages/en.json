@@ -45,7 +45,8 @@
   "campaigns": {
     "title": "Promotions",
     "subtitle": "Exclusive deals just for you.",
-    "noActive": "No active promotions at the moment."
+    "noActive": "No active promotions at the moment.",
+    "activePromotion": "Active Promotion"
   },
   "contact": {
     "title": "Find Us",

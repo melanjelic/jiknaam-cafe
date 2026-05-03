@@ -75,7 +75,7 @@ export default function CampaignsPage() {
                   <div className="flex-1 p-8 md:p-12 flex flex-col justify-center">
                     <span className="inline-flex items-center gap-1.5 text-xs text-green-400 mb-4">
                       <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                      Active Promotion
+                      {t("activePromotion")}
                     </span>
                     <h2 className="text-2xl md:text-3xl font-bold text-[#f0ece4] mb-4">
                       {title(c)}
