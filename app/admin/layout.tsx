@@ -10,6 +10,7 @@ import {
   UtensilsCrossed,
   Megaphone,
   Images,
+  Phone,
   LogOut,
   Coffee,
 } from "lucide-react";
@@ -45,6 +46,7 @@ function AdminShell({ children }: { children: React.ReactNode }) {
     { href: "/admin/menu", label: t("menu"), icon: UtensilsCrossed },
     { href: "/admin/campaigns", label: t("campaigns"), icon: Megaphone },
     { href: "/admin/gallery", label: t("gallery"), icon: Images },
+    { href: "/admin/contact", label: t("contact"), icon: Phone },
   ];
 
   return (

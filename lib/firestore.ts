@@ -3,6 +3,7 @@ import {
   doc,
   getDocs,
   getDoc,
+  setDoc,
   addDoc,
   updateDoc,
   deleteDoc,
@@ -130,4 +131,54 @@ export async function addGalleryItem(
 
 export async function deleteGalleryItem(id: string): Promise<void> {
   await deleteDoc(doc(db, "gallery", id));
+}
+
+// ─── Contact Info ─────────────────────────────────────────────────────────────
+
+export type DayKey = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
+
+export interface DayHours {
+  open: boolean;
+  from: string;
+  to: string;
+}
+
+export interface ContactInfo {
+  address_en: string;
+  address_th: string;
+  email: string;
+  phone: string;
+  facebook: string;
+  instagram: string;
+  hours: Record<DayKey, DayHours>;
+}
+
+export const DEFAULT_CONTACT: ContactInfo = {
+  address_en: "22/2 Moo 2, Bang Boribon, Prachin Buri, Thailand, 25000",
+  address_th: "22/2 หมู่ 2 ตำบล บางบริบูรณ์, ปราจีนบุรี, ประเทศไทย, 25000",
+  email: "hello@jiknaam.com",
+  phone: "+66 98 604 4280",
+  facebook: "#",
+  instagram: "#",
+  hours: {
+    monday:    { open: true,  from: "09:00", to: "22:00" },
+    tuesday:   { open: true,  from: "09:00", to: "22:00" },
+    wednesday: { open: true,  from: "09:00", to: "22:00" },
+    thursday:  { open: true,  from: "09:00", to: "22:00" },
+    friday:    { open: true,  from: "09:00", to: "22:00" },
+    saturday:  { open: true,  from: "09:00", to: "22:00" },
+    sunday:    { open: false, from: "09:00", to: "22:00" },
+  },
+};
+
+const contactDoc = () => doc(db, "settings", "contact");
+
+export async function getContactInfo(): Promise<ContactInfo> {
+  const snap = await getDoc(contactDoc());
+  if (!snap.exists()) return DEFAULT_CONTACT;
+  return { ...DEFAULT_CONTACT, ...snap.data() } as ContactInfo;
+}
+
+export async function saveContactInfo(data: ContactInfo): Promise<void> {
+  await setDoc(contactDoc(), data);
 }
