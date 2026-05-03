@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import FadeIn from "@/components/FadeIn";
 import { MapPin, Clock, Phone, Mail, ExternalLink, Loader2 } from "lucide-react";
 import { getContactInfo, type ContactInfo, type DayKey, DEFAULT_CONTACT } from "@/lib/firestore";
@@ -29,10 +29,7 @@ export default function ContactPage() {
     });
   }, []);
 
-  const locale = typeof window !== "undefined"
-    ? document.documentElement.lang || "en"
-    : "en";
-
+  const locale = useLocale();
   const address = locale === "th" ? info.address_th : info.address_en;
 
   if (loading) {
