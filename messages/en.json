@@ -1,0 +1,73 @@
+{
+  "navbar": {
+    "home": "Home",
+    "menu": "Menu",
+    "gallery": "Gallery",
+    "campaigns": "Campaigns",
+    "contact": "Contact"
+  },
+  "footer": {
+    "tagline": "A place where every sip tells a story.",
+    "follow": "Follow Us",
+    "copyright": "© {year} Jiknaam Cafe. All rights reserved."
+  },
+  "common": {
+    "viewMenu": "View Menu",
+    "learnMore": "Learn More",
+    "loading": "Loading...",
+    "error": "Something went wrong. Please try again.",
+    "noItems": "No items found.",
+    "back": "Back"
+  },
+  "home": {
+    "heroTitle": "Welcome to Jiknaam",
+    "heroSubtitle": "Specialty coffee & handcrafted bites in the heart of the city.",
+    "menuSection": "Our Menu",
+    "campaignsSection": "Current Promotions"
+  },
+  "menu": {
+    "title": "Our Menu",
+    "subtitle": "Crafted with passion, served with love.",
+    "categories": {
+      "all": "All",
+      "drink": "Drinks",
+      "food": "Food",
+      "dessert": "Desserts"
+    }
+  },
+  "gallery": {
+    "title": "Gallery",
+    "subtitle": "Moments captured at Jiknaam."
+  },
+  "campaigns": {
+    "title": "Promotions",
+    "subtitle": "Exclusive deals just for you.",
+    "noActive": "No active promotions at the moment."
+  },
+  "contact": {
+    "title": "Find Us",
+    "subtitle": "We'd love to see you.",
+    "address": "Address",
+    "hours": "Opening Hours",
+    "phone": "Phone",
+    "email": "Email",
+    "hoursValue": "Mon–Fri: 8:00–20:00\nSat–Sun: 9:00–21:00"
+  },
+  "admin": {
+    "login": "Admin Login",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "dashboard": "Dashboard",
+    "menu": "Menu",
+    "campaigns": "Campaigns",
+    "gallery": "Gallery",
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirmDelete": "Are you sure you want to delete this item?"
+  }
+}
