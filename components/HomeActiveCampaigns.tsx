@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import FadeIn from "@/components/FadeIn";
@@ -15,6 +15,7 @@ interface Props {
 
 export default function HomeActiveCampaigns({ sectionLabel, learnMoreLabel }: Props) {
   const locale = useLocale();
+  const t = useTranslations("home");
   const [items, setItems] = useState<Campaign[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -42,7 +43,7 @@ export default function HomeActiveCampaigns({ sectionLabel, learnMoreLabel }: Pr
           <div className="flex items-end justify-between mb-12">
             <div>
               <p className="text-xs text-[#d4a853] font-medium tracking-widest uppercase mb-2">
-                Promotions
+                {t("promotionsLabel")}
               </p>
               <h2 className="text-3xl font-bold text-[#f0ece4]">{sectionLabel}</h2>
             </div>

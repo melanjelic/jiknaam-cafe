@@ -26,7 +26,10 @@
     "heroSubtitle": "Specialty coffee & handcrafted bites in the heart of the city.",
     "menuSection": "Our Menu",
     "campaignsSection": "Current Promotions",
-    "quote": "A great cup of coffee is a love letter to the senses."
+    "quote": "A great cup of coffee is a love letter to the senses.",
+    "specialtyCoffee": "Specialty Coffee",
+    "menuLabel": "Menu",
+    "promotionsLabel": "Promotions"
   },
   "menu": {
     "title": "Our Menu",

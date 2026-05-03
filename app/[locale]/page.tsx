@@ -37,7 +37,7 @@ export default async function HomePage({
             <div className="inline-flex items-center gap-2 bg-[#d4a853]/10 border border-[#d4a853]/30 rounded-full px-4 py-1.5 mb-8">
               <span className="w-1.5 h-1.5 rounded-full bg-[#d4a853] animate-pulse" />
               <span className="text-xs text-[#d4a853] font-medium tracking-widest uppercase">
-                Specialty Coffee
+                {t("specialtyCoffee")}
               </span>
             </div>
           </FadeIn>
