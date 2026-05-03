@@ -9,7 +9,7 @@
   "footer": {
     "tagline": "สถานที่ที่ทุกจิบบอกเล่าเรื่องราว",
     "follow": "ติดตามเรา",
-    "copyright": "© {year} Jiknam Cafe สงวนลิขสิทธิ์"
+    "copyright": "© {year} {brand} สงวนลิขสิทธิ์"
   },
   "common": {
     "viewMenu": "ดูเมนู",
@@ -17,7 +17,9 @@
     "loading": "กำลังโหลด...",
     "error": "เกิดข้อผิดพลาด กรุณาลองอีกครั้ง",
     "noItems": "ไม่พบรายการ",
-    "back": "กลับ"
+    "back": "กลับ",
+    "brandName": "จิกนาม",
+    "brandNameFull": "จิกนาม คาเฟ่"
   },
   "home": {
     "heroTitle": "ยินดีต้อนรับสู่ Jiknam",

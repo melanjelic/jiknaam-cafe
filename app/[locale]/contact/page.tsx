@@ -19,6 +19,7 @@ const DAY_LABELS: Record<DayKey, { en: string; th: string }> = {
 
 export default function ContactPage() {
   const t = useTranslations("contact");
+  const tCommon = useTranslations("common");
   const [info, setInfo] = useState<ContactInfo>(DEFAULT_CONTACT);
   const [loading, setLoading] = useState(true);
 
@@ -45,7 +46,7 @@ export default function ContactPage() {
       <div className="max-w-6xl mx-auto">
         <FadeIn className="text-center mb-14">
           <p className="text-xs text-[#d4a853] font-medium tracking-widest uppercase mb-3">
-            Jiknam
+            {tCommon("brandName")}
           </p>
           <h1 className="text-4xl font-bold text-[#f0ece4] mb-4">
             {t("title")}

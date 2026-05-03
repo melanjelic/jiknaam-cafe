@@ -98,7 +98,7 @@ export default async function HomePage({
               &ldquo;A great cup of coffee is a love letter to the senses.&rdquo;
             </p>
             <span className="mt-4 block text-xs text-[#d4a853] tracking-widest uppercase">
-              — Jiknam
+              — {tCommon("brandName")}
             </span>
           </blockquote>
         </FadeIn>

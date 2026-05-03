@@ -1,11 +1,10 @@
 import { getTranslations } from "next-intl/server";
 import { Coffee } from "lucide-react";
-import { Link } from "@/i18n/navigation";
 import FooterSocial from "./FooterSocial";
 
 export default async function Footer() {
   const t = await getTranslations("footer");
-  const tNav = await getTranslations("navbar");
+  const tCommon = await getTranslations("common");
   const year = new Date().getFullYear();
 
   return (
@@ -19,26 +18,13 @@ export default async function Footer() {
                 <Coffee size={15} className="text-[#d4a853]" />
               </div>
               <span className="font-semibold text-[#f0ece4] tracking-wide text-sm">
-                JIKNAM
+                {tCommon("brandName")}
               </span>
             </div>
             <p className="text-sm text-[#555] max-w-xs text-center md:text-left">
               {t("tagline")}
             </p>
           </div>
-
-          {/* Nav links */}
-          <nav className="flex flex-col items-center md:items-start gap-2">
-            {(["home", "menu", "gallery", "campaigns", "contact"] as const).map((key) => (
-              <Link
-                key={key}
-                href={key === "home" ? "/" : `/${key}`}
-                className="text-sm text-[#555] hover:text-[#d4a853] transition-colors"
-              >
-                {tNav(key)}
-              </Link>
-            ))}
-          </nav>
 
           {/* Social */}
           <div className="flex flex-col items-center md:items-start gap-3">
@@ -51,7 +37,7 @@ export default async function Footer() {
 
         <div className="mt-10 pt-6 border-t border-[#1c1c1c] text-center">
           <p className="text-xs text-[#444]">
-            {t("copyright", { year })}
+            {t("copyright", { year, brand: tCommon("brandNameFull") })}
           </p>
         </div>
       </div>

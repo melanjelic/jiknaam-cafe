@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
   const t = useTranslations("navbar");
+  const tCommon = useTranslations("common");
   const locale = useLocale();
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
@@ -44,7 +45,7 @@ export default function Navbar() {
             <Coffee size={15} className="text-[#d4a853]" />
           </div>
           <span className="font-semibold text-[#f0ece4] tracking-wide text-sm">
-            JIKNAM
+            {tCommon("brandName")}
           </span>
         </Link>
 

@@ -10,6 +10,7 @@ import { Loader2 } from "lucide-react";
 export default function CampaignsPage() {
   const t = useTranslations("campaigns");
   const tCommon = useTranslations("common");
+
   const locale = useLocale();
 
   const [items, setItems] = useState<Campaign[]>([]);
@@ -32,7 +33,7 @@ export default function CampaignsPage() {
         {/* Header */}
         <FadeIn className="text-center mb-14">
           <p className="text-xs text-[#d4a853] font-medium tracking-widest uppercase mb-3">
-            Jiknam
+            {tCommon("brandName")}
           </p>
           <h1 className="text-4xl font-bold text-[#f0ece4] mb-4">{t("title")}</h1>
           <p className="text-[#666]">{t("subtitle")}</p>

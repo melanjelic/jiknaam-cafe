@@ -9,7 +9,7 @@
   "footer": {
     "tagline": "A place where every sip tells a story.",
     "follow": "Follow Us",
-    "copyright": "© {year} Jiknam Cafe. All rights reserved."
+    "copyright": "© {year} {brand}. All rights reserved."
   },
   "common": {
     "viewMenu": "View Menu",
@@ -17,7 +17,9 @@
     "loading": "Loading...",
     "error": "Something went wrong. Please try again.",
     "noItems": "No items found.",
-    "back": "Back"
+    "back": "Back",
+    "brandName": "Jiknam",
+    "brandNameFull": "Jiknam Cafe"
   },
   "home": {
     "heroTitle": "Welcome to Jiknam",
