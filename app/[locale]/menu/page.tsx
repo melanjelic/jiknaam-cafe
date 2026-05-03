@@ -32,6 +32,8 @@ export default function MenuPage() {
     locale === "th" ? item.name_th || item.name_en : item.name_en;
   const desc = (item: MenuItem) =>
     locale === "th" ? item.desc_th || item.desc_en : item.desc_en;
+  const categoryLabel = (cat: MenuCategory) =>
+    cat === "Drink" ? t("categories.drink") : cat === "Food" ? t("categories.food") : t("categories.dessert");
 
   return (
     <div className="min-h-screen py-20 px-5">
@@ -96,7 +98,7 @@ export default function MenuPage() {
                     />
                     <div className="absolute top-3 right-3">
                       <span className="text-[10px] font-semibold bg-[#0d0d0d]/80 backdrop-blur-sm text-[#d4a853] px-2.5 py-1 rounded-full">
-                        {item.category}
+                        {categoryLabel(item.category)}
                       </span>
                     </div>
                   </div>
