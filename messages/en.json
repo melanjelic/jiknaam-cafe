@@ -9,7 +9,7 @@
   "footer": {
     "tagline": "A place where every sip tells a story.",
     "follow": "Follow Us",
-    "copyright": "© {year} Jiknaam Cafe. All rights reserved."
+    "copyright": "© {year} Jiknam Cafe. All rights reserved."
   },
   "common": {
     "viewMenu": "View Menu",
@@ -20,7 +20,7 @@
     "back": "Back"
   },
   "home": {
-    "heroTitle": "Welcome to Jiknaam",
+    "heroTitle": "Welcome to Jiknam",
     "heroSubtitle": "Specialty coffee & handcrafted bites in the heart of the city.",
     "menuSection": "Our Menu",
     "campaignsSection": "Current Promotions"
@@ -37,7 +37,7 @@
   },
   "gallery": {
     "title": "Gallery",
-    "subtitle": "Moments captured at Jiknaam."
+    "subtitle": "Moments captured at Jiknam."
   },
   "campaigns": {
     "title": "Promotions",

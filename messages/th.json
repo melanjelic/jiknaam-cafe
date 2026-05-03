@@ -9,7 +9,7 @@
   "footer": {
     "tagline": "สถานที่ที่ทุกจิบบอกเล่าเรื่องราว",
     "follow": "ติดตามเรา",
-    "copyright": "© {year} Jiknaam Cafe สงวนลิขสิทธิ์"
+    "copyright": "© {year} Jiknam Cafe สงวนลิขสิทธิ์"
   },
   "common": {
     "viewMenu": "ดูเมนู",
@@ -20,7 +20,7 @@
     "back": "กลับ"
   },
   "home": {
-    "heroTitle": "ยินดีต้อนรับสู่ Jiknaam",
+    "heroTitle": "ยินดีต้อนรับสู่ Jiknam",
     "heroSubtitle": "กาแฟพิเศษและอาหารว่างทำมือใจกลางเมือง",
     "menuSection": "เมนูของเรา",
     "campaignsSection": "โปรโมชั่นปัจจุบัน"
@@ -37,7 +37,7 @@
   },
   "gallery": {
     "title": "แกลเลอรี",
-    "subtitle": "ช่วงเวลาที่บันทึกไว้ที่ Jiknaam"
+    "subtitle": "ช่วงเวลาที่บันทึกไว้ที่ Jiknam"
   },
   "campaigns": {
     "title": "โปรโมชั่น",

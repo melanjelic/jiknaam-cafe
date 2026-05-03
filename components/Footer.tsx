@@ -5,6 +5,7 @@ import FooterSocial from "./FooterSocial";
 
 export default async function Footer() {
   const t = await getTranslations("footer");
+  const tNav = await getTranslations("navbar");
   const year = new Date().getFullYear();
 
   return (
@@ -18,7 +19,7 @@ export default async function Footer() {
                 <Coffee size={15} className="text-[#d4a853]" />
               </div>
               <span className="font-semibold text-[#f0ece4] tracking-wide text-sm">
-                JIKNAAM
+                JIKNAM
               </span>
             </div>
             <p className="text-sm text-[#555] max-w-xs text-center md:text-left">
@@ -32,9 +33,9 @@ export default async function Footer() {
               <Link
                 key={key}
                 href={key === "home" ? "/" : `/${key}`}
-                className="text-sm text-[#555] hover:text-[#d4a853] transition-colors capitalize"
+                className="text-sm text-[#555] hover:text-[#d4a853] transition-colors"
               >
-                {key}
+                {tNav(key)}
               </Link>
             ))}
           </nav>

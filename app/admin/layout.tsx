@@ -56,7 +56,7 @@ function AdminShell({ children }: { children: React.ReactNode }) {
         <div className="p-5 border-b border-[#2a2a2a] flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Coffee size={20} className="text-[#d4a853]" />
-            <span className="font-semibold text-[#f0ece4] text-sm">Jiknaam Admin</span>
+            <span className="font-semibold text-[#f0ece4] text-sm">Jiknam Admin</span>
           </div>
           <button
             onClick={() => setLang(lang === "en" ? "th" : "en")}

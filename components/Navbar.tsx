@@ -44,7 +44,7 @@ export default function Navbar() {
             <Coffee size={15} className="text-[#d4a853]" />
           </div>
           <span className="font-semibold text-[#f0ece4] tracking-wide text-sm">
-            JIKNAAM
+            JIKNAM
           </span>
         </Link>
 

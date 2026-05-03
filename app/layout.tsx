@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Jiknaam Cafe",
+  title: "Jiknam Cafe",
   description: "Specialty coffee & handcrafted bites.",
 };
 
